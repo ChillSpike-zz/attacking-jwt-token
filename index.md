@@ -5,4 +5,4 @@ Attacking JWT tokens
 ### Header:
  The header usually consists of two attributes: the type of the token, i.e: JWT, and the signing algorithm used. Ex: HMAC SHA256 ,RSA , other supported signing algorithms as per the [RFC7518](https://tools.ietf.org/html/rfc7518#section-3)
 
-![jwt token](https://github.com/ChillSpike/attacking-jwt-token/blob/master/jwt.io.PNG)
+<img src="https://github.com/ChillSpike/attacking-jwt-token/blob/master/jwt.io.PNG" onerror="jwt.io"/>
