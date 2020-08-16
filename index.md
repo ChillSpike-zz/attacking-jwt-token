@@ -8,7 +8,7 @@ A sample JWT encoded payload would be
 
 The same JWT paylaod  when decoded would consist of 3 parts: Header,Payload and Signature.
 
-<img src="jwt.io.PNG"></img>
+<img src="jwt.io.PNG"/>
 
 ### Header:
  The header usually consists of two attributes: the type of the token, i.e: JWT, and the signing algorithm used. Ex: HMAC SHA256 ,RSA , other supported signing algorithms as per the [RFC7518](https://tools.ietf.org/html/rfc7518#section-3)
@@ -20,13 +20,22 @@ Along with the supported algorithms , the specification also allows you to defin
 After changing alg to none, remove the signature from the JWT ===> (header + ‘.’ + payload + ‘.’) and submit it to the server.
 ** As per [Auth0](https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/)-- current implementation  has basic check to prevent this attack ,the token verification would ideally fail for using algorithm none. But it is still a good entry point to investigate .
 
- 
+
+  
 #### Attack surface in Body component [2] :
 Rather including the required information developers might often retreive the whole objects from database and put it into the body of JWT resulting in Information disclosure via  the decoded body. As an attacker you could check for password hashes, users address, credit card info or other sensitive data .Often developers do include links to other user's record or another identifier as well.
-Certain scenarios requires the presence of  "JTI" field in the body, failure to include this could result in the request being replayed casuign a token replay attack.
+Certain scenarios requires the presence of  "JTI" field in the body, failure to include this could result in the request being replayed casuign a token replay attack.To reduce the attack surface , include a nonce(jti claim), an exp claim (expioration) and iat claim (cration time for token).
+  <img src="body.PNG"/>
 
+#### Attack surface in signature component [3] :
+ <img src="signature.PNG"/>
 
-#### Attack surface in signature component [3] :Information Disclosure:
 The main element in the entire JWT payload is the "secret-key" that is used to sign and verify the integrity of the token.
-The secret key used to sign a JWT should be a long random string, making it impossible to guess or crack, but this is not always the case.If you could crack the secret-key used by the signing algorithm to sign a JWT, then you are free to sign your own tokens and tamper the data withing the payload.The secret-key should only be accessible to the issuer and the consumer; it should not be accessible to anybody else.Some tools such as John the Ripper, JWT cracker or Hashcat could be used to brute force the secret-key if the key is not long enough.
+The secret key used to sign a JWT should be a long random string, making it impossible to guess or crack, but this is not always the case.If the HS256 key strength is weak, it can be directly brute-forced.If you could crack the secret-key used by the signing algorithm to sign a JWT, then you are free to sign your own tokens and tamper the data withing the payload.The secret-key should only be accessible to the issuer and the consumer; it should not be accessible to anybody else.Some tools such as John the Ripper, JWT cracker or Hashcat could be used to brute force the secret-key if the key is not long enough.
+#### Scenario:
+[-]If your token uses HS256 algorithm which is a HMAC+SHA 256 , it uses the same secret-key to sign and verify each message.
+[-]Incase of algorithm RS256 which is RSA_SHA256 uses the private key to sign the message and the public key is used for consumer to verify the signature.
+Since identity provider has a private/secret-key used to generate the signature, and the consumer of the token gets a public key to verify the signature. Since the public key, doesn't need to be kept secured, most identity providers make it easily available for consumers to obtain ,sometimes through a metadata URL.
+If you change the algorithm from RS256 to HS256, then the backend code uses the public key , which would now be treated as secret-key/private key because of change in algorithm from asymmetric to symmetric.The secret-key is now used along with HS256 algorithm and sign the tokens.
+
 
