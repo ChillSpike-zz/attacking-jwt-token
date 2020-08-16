@@ -40,8 +40,7 @@ Since identity provider has a private/secret-key used to generate the signature,
 If you change the algorithm from RS256 to HS256, then the backend code uses the public key , which would now be treated as secret-key/private key because of change in algorithm from asymmetric to symmetric.The secret-key is now used along with HS256 algorithm and sign the tokens and you could keep tameprign with the payload and sign the tokens.
 
 #### Sample labs / playgrounds to learn:
-[1]: [Auth-labs](https://authlab.digi.ninja/JWT_Cracking)
-[2]: [JWT signature in an error message emitted when JWT signature validation fails](https://auth0.com/docs/security/cve-2019-7644)
-
+[1]: [JWT signature in an error message emitted when JWT signature validation fails](https://auth0.com/docs/security/cve-2019-7644)
+[2]: [Auth-Labs](https://authlab.digi.ninja/JWT_Cracking)
 
 
