@@ -13,9 +13,10 @@ The same JWT paylaod  when decoded would consist of 3 parts: Header,Payload and 
 ### Header:
  The header usually consists of two attributes: the type of the token, i.e: JWT, and the signing algorithm used. Ex: HMAC SHA256 ,RSA , other supported signing algorithms as per the [RFC7518](https://tools.ietf.org/html/rfc7518#section-3)
  
- <img src="header.PNG"/>
+
  
 #### Attack surface in Header component [1] :
+ <img src="header.PNG"/>
 Along with the supported algorithms , the specification also allows you to define the "alg:None". It was allowed to be used for situations where the integrity of the token was verified or trusted .There are few libraries  that treat such tokens (alg:none) as valid ,allowing an attacker to forge a JWT for any user by creating a JWT with an algorithm of none or None OR nonE. Modifying the signature usin this technique is easy as the attacker could set "alg":"None" and use an empty signature as below:
 After changing alg to none, remove the signature from the JWT ===> (header + ‘.’ + payload + ‘.’) and submit it to the server.
 ** As per [Auth0](https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/)-- current implementation  has basic check to prevent this attack ,the token verification would ideally fail for using algorithm none. But it is still a good entry point to investigate .
