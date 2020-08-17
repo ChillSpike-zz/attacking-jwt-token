@@ -39,9 +39,8 @@ The secret key used to sign a JWT should be a long random string, making it impo
 Since identity provider has a private/secret-key used to generate the signature, and the consumer of the token gets a public key to verify the signature. Since the public key, doesn't need to be kept secured, most identity providers make it easily available for consumers to obtain ,sometimes through a metadata URL.
 If you change the algorithm from RS256 to HS256, then the backend code uses the public key , which would now be treated as secret-key/private key because of change in algorithm from asymmetric to symmetric.The secret-key is now used along with HS256 algorithm and sign the tokens and you could keep tameprign with the payload and sign the tokens.
 
-#### Sample labs / playgrounds to learn:
-[1]: [JWT signature in an error message emitted when JWT signature validation fails](https://auth0.com/docs/security/cve-2019-7644)
-
-[2]: [Auth-Labs](https://authlab.digi.ninja/JWT_Cracking)
+### Sample labs / playgrounds to learn:
+#### [+]:[JWT signature in an error message emitted when JWT signature validation fails](https://auth0.com/docs/security/cve-2019-7644)
+#### [+]:[Auth-Labs](https://authlab.digi.ninja/JWT_Cracking)
 
 
