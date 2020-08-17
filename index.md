@@ -41,6 +41,7 @@ If you change the algorithm from RS256 to HS256, then the backend code uses the 
 
 #### Sample labs / playgrounds to learn:
 [1]: [JWT signature in an error message emitted when JWT signature validation fails](https://auth0.com/docs/security/cve-2019-7644)
+
 [2]: [Auth-Labs](https://authlab.digi.ninja/JWT_Cracking)
 
 
