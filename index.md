@@ -4,7 +4,6 @@ A signed JWT is known as a JSON Web Signature (JWS) - It a specification for tra
 JWT consists of three components, a header, a payload and the digital signature. These three components are Base64url encoded and separated by dots(.)- example below:
 ## eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c 
 ## Since JWT contains  3 parts, our attack surface could be targeted to each of these components
-A sample JWT encoded payload would be 
 
 The same JWT paylaod  when decoded would consist of 3 parts: Header,Payload and Signature.
 
